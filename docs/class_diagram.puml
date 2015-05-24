@@ -1,0 +1,54 @@
+@startuml
+
+class ContentPage {
+	const TYPE_TEXT = 0
+	const TYPE_INTERNAL_LINK = 1
+	const TYPE_EXTERNAL_LINK = 2
+	--
+	int $active
+	int $sorter
+	int $type
+	int $is_main
+	int $parent_id
+	int $content_template_id
+	int $content_menu_id
+	string $name
+	string $slug
+	string $menu_image
+	string $meta_title
+	string $meta_keywords
+	string $meta_description
+	mediumtext $body
+}
+
+class ContentMenu {
+	int $active
+	int $has_submenu
+	int $has_menu_image
+	string $name
+}
+
+class ContentTemplate {
+	int $active
+	int $can_be_deleted
+	string $name
+}
+
+class ContentTemplateWidget {
+	int $active
+	int $single_per_page
+	string $name
+	string $position
+	string $widget_class
+	string $widget_options
+	int $has_settings
+	string $link_to_settings
+}
+
+ContentPage "*"-- ContentPage
+ContentPage "*"-- ContentMenu
+ContentPage "*"-- ContentTemplate
+
+ContentTemplate "*"-- "*" ContentTemplateWidget
+
+@enduml

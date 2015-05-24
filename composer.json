@@ -1,0 +1,15 @@
+{
+	"name": "webvimark/ybc-content",
+	"description": "Core YBC module for content management (pages, layouts and menus)",
+	"autoload": {
+		"psr-4": {
+			"webvimark\\ybc\\content\\": ""
+		}
+	},
+	"require": {
+		"webvimark/jqtreewidget": "dev-master",
+		"webvimark/components": "*",
+		"webvimark/ckeditor": "*",
+		"webvimark/helpers": "dev-master"
+	}
+}
