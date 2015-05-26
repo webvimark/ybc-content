@@ -92,7 +92,7 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 			'mlBehavior'=>[
 				'class'    => MultiLanguageBehavior::className(),
 				'mlConfig' => [
-					'db_table'         => 'translations_with_string',
+					'db_table'         => 'ml_translations',
 					'attributes'       => ['name', 'body', 'meta_title', 'meta_description', 'meta_keywords'],
 					'admin_routes'     => [
 						'content/content-page/update',

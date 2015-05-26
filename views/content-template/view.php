@@ -1,11 +1,10 @@
 <?php
 
 use webvimark\ybc\content\ContentModule;
-use webvimark\modules\content\assets\SortableAsset;
+use webvimark\ybc\content\assets\SortableAsset;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
