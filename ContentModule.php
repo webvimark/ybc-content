@@ -54,6 +54,13 @@ class ContentModule extends \yii\base\Module
 	 */
 	public $enablePageCache = false;
 
+	/**
+	 * How long page with be cached (in seconds) if full page cache is enabled
+	 *
+	 * @see $enablePageCache
+	 * @var int
+	 */
+	public $pageCacheTime = 3600;
 
 	public $controllerNamespace = 'webvimark\ybc\content\controllers';
 

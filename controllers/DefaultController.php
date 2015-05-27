@@ -31,7 +31,7 @@ class DefaultController extends BaseController
 				parent::behaviors(),
 				[
 					'class' => 'yii\filters\PageCache',
-					'duration' => 20,
+					'duration' => $this->module->pageCacheTime,
 					'variations' => [
 						Yii::$app->language,
 						Yii::$app->user->isGuest,
@@ -82,7 +82,10 @@ class DefaultController extends BaseController
 					->one();
 			}, ContentModule::CACHE_TIME, new TagDependency(['tags'=>ContentModule::CACHE_TAG]));
 
-			$this->layout = Yii::getAlias('//templates/') . $template->layout . '/layout.php';
+			if ( $template && is_file(Yii::getAlias('//templates/') . $template->layout . '/layout.php') )
+			{
+				$this->layout = Yii::getAlias('//templates/') . $template->layout . '/layout.php';
+			}
 		}
 
 		$breadcrumbs[] = ['label'=>$contentPage->name];

@@ -114,7 +114,6 @@ class ContentTemplateWidget extends \webvimark\components\BaseActiveRecord
 			[['name', 'widget_class'], 'required'],
 			['code', 'unique'],
 			['positionIds', 'safe'],
-			['position', 'default', 'value'=>''],
 			[['name', 'widget_class', 'widget_options', 'link_to_settings'], 'string', 'max' => 255],
 			[['name', 'widget_class', 'widget_options', 'link_to_settings'], 'trim']
 		];

@@ -65,7 +65,7 @@ class m150516_163227_content_module_init extends Migration
 			'active'           => 'smallint(1) not null default 1',
 			'single_per_page'  => 'smallint(1) not null',
 			'name'             => 'string not null',
-			'position'         => 'string not null',
+			'position'         => 'string',
 			'widget_class'     => 'string not null',
 			'widget_options'   => 'string',
 			'code'             => 'string not null unique',
