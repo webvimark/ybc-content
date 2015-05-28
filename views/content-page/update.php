@@ -23,7 +23,6 @@ switch ($model->type)
 
 $this->title = Yii::t('app', 'Editing') . " " . $pageTypeText . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => $menuName, 'url' => ['tree', 'menuId' => $model->content_menu_id]];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
 ?>
 <div class="content-page-update">

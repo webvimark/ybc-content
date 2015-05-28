@@ -47,6 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
 						'attribute'=>'position',
 						'value'=>$model->showNicePositions(),
 						'format'=>'raw',
+						'visible'=>Yii::$app->getModule('content')->enableTemplates,
+					],
+					[
+						'attribute'=>'code',
+						'visible'=>Yii::$app->user->isSuperadmin,
 					],
 					[
 						'attribute'=>'has_submenu',

@@ -124,7 +124,7 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 					return $model->type != static::TYPE_TEXT;
 				}],
 			['content_template_id', 'required', 'when'=>function(ContentPage $model){
-					return $model->type != static::TYPE_EXTERNAL_LINK;
+					return ( Yii::$app->getModule('content')->enableTemplates && $model->type != static::TYPE_EXTERNAL_LINK );
 				}],
 			['type', 'in', 'range'=>[static::TYPE_TEXT, static::TYPE_EXTERNAL_LINK, static::TYPE_INTERNAL_LINK]]
 		];
@@ -136,7 +136,7 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id'                  => Yii::t('app', 'ID'),
+			'id'                  => 'ID',
 			'active'              => ContentModule::t('app', 'Active'),
 			'sorter'              => ContentModule::t('app', 'Sorter'),
 			'is_main'             => ContentModule::t('app', 'Main page'),

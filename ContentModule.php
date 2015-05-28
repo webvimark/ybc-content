@@ -89,7 +89,8 @@ class ContentModule extends \yii\base\Module
 
 			'18' => [
 				'label' => '<i class="fa fa-code-fork"></i> ' . ContentModule::t('app', 'Template widgets'),
-				'url'   => ['/content/content-template-widget/index']
+				'url'   => ['/content/content-template-widget/index'],
+				'visible'=>( Yii::$app->getModule('content')->enableTemplates && User::canRoute(['/content/content-template-widget/index']) ),
 			],
 			'19'=>[
 				'label' => '<i class="fa fa-table"></i> ' . ContentModule::t('app', 'Manage menus'), 'url' => ['/content/content-menu/index']

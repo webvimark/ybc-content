@@ -16,6 +16,7 @@ use yii\helpers\Url;
  * @property integer $has_submenu
  * @property integer $has_menu_image
  * @property string $name
+ * @property string $code
  * @property string $position
  * @property integer $created_at
  * @property integer $updated_at
@@ -266,9 +267,17 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 				'url'=>['/content/content-page/tree', 'menuId'=>$menu['id']],
 			];
 		}
-		$output[$i] = ['label' => '<i class="fa fa-file-o"></i> ' . ContentModule::t('app', 'Without menu'), 'url' => ['/content/content-page/tree', 'id'=>null]];
+		$output[$i] = ['label' => '<i class="fa fa-file-o"></i> ' . static::withoutMenuName(), 'url' => ['/content/content-page/tree', 'id'=>null]];
 
 		return $output;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function withoutMenuName()
+	{
+		return ContentModule::t('app', 'Pages without menu');
 	}
 
 	/**
@@ -298,8 +307,8 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 			[['active', 'has_submenu', 'has_menu_image'], 'integer'],
 			['positionIds', 'safe'],
 			[['name'], 'required'],
-			[['name'], 'string', 'max' => 255],
-			[['name'], 'trim'],
+			[['name', 'code'], 'string', 'max' => 255],
+			[['name', 'code'], 'trim'],
 		];
 	}
 
@@ -309,12 +318,13 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
+			'id' => 'ID',
 			'active' => ContentModule::t('app', 'Active'),
 			'has_submenu' => ContentModule::t('app', 'Has submenu'),
 			'has_menu_image' => ContentModule::t('app', 'Has menu image'),
 			'positionIds' => ContentModule::t('app', 'Position'),
 			'name' => ContentModule::t('app', 'Name'),
+			'code' => ContentModule::t('app', 'Code'),
 			'created_at' => Yii::t('app', 'Created'),
 			'updated_at' => Yii::t('app', 'Updated'),
 		];

@@ -125,7 +125,7 @@ class ContentTemplateWidget extends \webvimark\components\BaseActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
+			'id' => 'ID',
 			'active' => ContentModule::t('app', 'Active'),
 			'single_per_page' => ContentModule::t('app', 'Single per page'),
 			'name' => ContentModule::t('app', 'Name'),

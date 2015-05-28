@@ -67,12 +67,17 @@ $this->params['breadcrumbs'][] = $this->title;
 						'format'=>'raw',
 					],
 					[
+						'attribute'=>'code',
+						'visible'=>Yii::$app->user->isSuperadmin,
+					],
+					[
 						'attribute'=>'position',
-						'filter'=>$this->context->module->availableWidgetPositions,
+						'filter'=>Yii::$app->getModule('content')->availableWidgetPositions,
 						'value'=>function(ContentMenu $model) {
 								return $model->showNicePositions();
 							},
 						'format'=>'raw',
+						'visible'=>Yii::$app->getModule('content')->enableTemplates,
 					],
 					[
 						'class'=>'webvimark\components\StatusColumn',

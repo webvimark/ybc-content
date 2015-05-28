@@ -22,7 +22,14 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 
 	<?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'autofocus'=>$model->isNewRecord ? true:false]) ?>
 
-	<?= $form->field($model, 'positionIds')->checkboxList($this->context->module->availableWidgetPositions) ?>
+	<?php if ( Yii::$app->user->isSuperadmin ): ?>
+		<?= $form->field($model, 'code')->textInput(['maxlength' => 255]) ?>
+
+	<?php endif; ?>
+
+	<?php if ( Yii::$app->getModule('content')->enableTemplates ): ?>
+		<?= $form->field($model, 'positionIds')->checkboxList($this->context->module->availableWidgetPositions) ?>
+	<?php endif; ?>
 
 	<?= $form->field($model->loadDefaultValues(), 'has_submenu')->checkbox(['class'=>'b-switch'], false) ?>
 

@@ -42,7 +42,7 @@ class ContentPageController extends AdminDefaultController
 	public function actionTree($menuId = null)
 	{
 		$hasSubmenu = 0;
-		$menuName = ContentModule::t('app', 'Without menu');
+		$menuName = ContentMenu::withoutMenuName();
 
 		if ( $menuId )
 		{
@@ -79,7 +79,7 @@ class ContentPageController extends AdminDefaultController
 			throw new NotSupportedException('Type = ' . $type . ' is not supported');
 		}
 
-		$menuName = ContentModule::t('app', 'Without menu');
+		$menuName = ContentMenu::withoutMenuName();
 		$hasMenuImage = false;
 
 		if ( $menuId )
@@ -122,7 +122,7 @@ class ContentPageController extends AdminDefaultController
 		$model = $this->findModel($id);
 
 		$hasMenuImage = ($model->contentMenu && $model->contentMenu->has_menu_image === 1);
-		$menuName = $model->contentMenu ? $model->contentMenu->name : ContentModule::t('app', 'Without menu');
+		$menuName = $model->contentMenu ? $model->contentMenu->name : ContentMenu::withoutMenuName();
 
 		if ( $model->load(Yii::$app->request->post()) )
 		{

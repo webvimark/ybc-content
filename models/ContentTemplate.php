@@ -162,7 +162,7 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => Yii::t('app', 'ID'),
+			'id' => 'ID',
 			'active' => ContentModule::t('app', 'Active'),
 			'can_be_deleted' => ContentModule::t('app', 'Can be deleted'),
 			'name' => ContentModule::t('app', 'Name'),

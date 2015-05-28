@@ -90,27 +90,32 @@ use webvimark\extensions\ckeditor\CKEditor;
 
 					</div>
 
-					<div class="col-lg-4">
-						<?php if ( count(Yii::$app->params['mlConfig']['languages']) > 1 ): ?>
-							<br/><br/>
+					<?php if ( Yii::$app->getModule('content')->enableTemplates ): ?>
 
-						<?php endif; ?>
+						<div class="col-lg-4">
+							<?php if ( count(Yii::$app->params['mlConfig']['languages']) > 1 ): ?>
+								<br/><br/>
 
-						<?php
-						$templates = ContentTemplate::find()->active()->asArray()->all();
-						if ( count($templates) == 1 AND !$model->content_template_id )
-						{
-							$model->content_template_id = $templates[0];
-						}
-						?>
+							<?php endif; ?>
 
-						<?= $form->field($model, 'content_template_id', ['options'=>['class'=>'required']])
-							->dropDownList(
-								ArrayHelper::map($templates, 'id', 'name'),
-								['prompt'=>'']
-							) ?>
+							<?php
+							$templates = ContentTemplate::find()->active()->asArray()->all();
+							if ( count($templates) == 1 AND !$model->content_template_id )
+							{
+								$model->content_template_id = $templates[0];
+							}
+							?>
 
-					</div>
+							<?= $form->field($model, 'content_template_id', ['options'=>['class'=>'required']])
+								->dropDownList(
+									ArrayHelper::map($templates, 'id', 'name'),
+									['prompt'=>'']
+								) ?>
+
+						</div>
+
+					<?php endif; ?>
+
 
 				<?php endif; ?>
 

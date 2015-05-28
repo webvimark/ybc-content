@@ -67,7 +67,7 @@ class ContentTemplateController extends AdminDefaultController
 				}
 			}
 
-			Yii::$app->session->setFlash('success', Yii::t('app', 'Saved'));
+			Yii::$app->session->setFlash('success', ContentModule::t('app', 'Saved'));
 
 			return $this->refresh();
 		}

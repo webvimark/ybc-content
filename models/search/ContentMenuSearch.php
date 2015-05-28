@@ -16,7 +16,7 @@ class ContentMenuSearch extends ContentMenu
 	{
 		return [
 			[['id', 'active', 'has_submenu', 'has_menu_image'], 'integer'],
-			[['name', 'created_at', 'updated_at', 'position'], 'safe'],
+			[['name', 'created_at', 'updated_at', 'position', 'code'], 'safe'],
 		];
 	}
 
@@ -59,7 +59,8 @@ class ContentMenuSearch extends ContentMenu
 			'content_menu.has_submenu' => $this->has_submenu,
 		]);
 
-        	$query->andFilterWhere(['like', 'content_menu.name', $this->name]);
+        	$query->andFilterWhere(['like', 'content_menu.name', $this->name])
+			->andFilterWhere(['like', 'content_menu.code', $this->code]);
 
 		if ( $this->position )
 		{
