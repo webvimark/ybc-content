@@ -2,6 +2,8 @@
 
 namespace webvimark\ybc\content;
 
+use webvimark\modules\UserManagement\models\User;
+use webvimark\ybc\content\models\ContentMenu;
 use Yii;
 
 class ContentModule extends \yii\base\Module
@@ -11,6 +13,12 @@ class ContentModule extends \yii\base\Module
 	const CACHE_TAG = 'content_module_cache_tag';
 	const PAGE_CACHE_TAG = 'content_module_page_cache_tag';
 
+	/**
+	 * Wherever use templates or don't mention them anywhere
+	 *
+	 * @var bool
+	 */
+	public $enableTemplates = true;
 
 	/**
 	 * Array of the pages for internal links where link to the functional page is the key of array
@@ -62,7 +70,43 @@ class ContentModule extends \yii\base\Module
 	 */
 	public $pageCacheTime = 3600;
 
+
 	public $controllerNamespace = 'webvimark\ybc\content\controllers';
+
+	/**
+	 * List of items for backend side menu
+	 *
+	 * @return array
+	 */
+	public static function getSideMenuItems()
+	{
+		$output = [
+			'17' => [
+				'label' => '<i class="fa fa-pagelines"></i> ' . ContentModule::t('app', 'Page templates'),
+				'url'   => ['/content/content-template/index'],
+				'visible'=>( Yii::$app->getModule('content')->enableTemplates && User::canRoute(['/content/content-template/index']) ),
+			],
+
+			'18' => [
+				'label' => '<i class="fa fa-code-fork"></i> ' . ContentModule::t('app', 'Template widgets'),
+				'url'   => ['/content/content-template-widget/index']
+			],
+			'19'=>[
+				'label' => '<i class="fa fa-table"></i> ' . ContentModule::t('app', 'Manage menus'), 'url' => ['/content/content-menu/index']
+			],
+		];
+
+		$menus = ContentMenu::getListOfMenus();
+
+		arsort($menus);
+
+		foreach ($menus as $menu)
+		{
+			array_unshift($output, $menu);
+		}
+
+		return $output;
+	}
 
 	/**
 	* I18N helper

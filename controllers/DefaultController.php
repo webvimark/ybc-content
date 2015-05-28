@@ -54,6 +54,8 @@ class DefaultController extends BaseController
 	 */
 	public function actionView($slug)
 	{
+		Yii::$app->cache->flush();
+
 		$contentPage = ContentPage::getDb()->cache(function() use ($slug) {
 			return ContentPage::find()
 				->andWhere([
@@ -71,7 +73,7 @@ class DefaultController extends BaseController
 		// content_template_id is set in ContentUrlRule
 		$templateId = Singleton::getData('content_template_id');
 
-		if ( $templateId )
+		if ( $templateId && $this->module->enableTemplates )
 		{
 			$template = ContentTemplate::getDb()->cache(function() use ($templateId) {
 				return ContentTemplate::find()
@@ -82,7 +84,7 @@ class DefaultController extends BaseController
 					->one();
 			}, ContentModule::CACHE_TIME, new TagDependency(['tags'=>ContentModule::CACHE_TAG]));
 
-			if ( $template && is_file(Yii::getAlias('//templates/') . $template->layout . '/layout.php') )
+			if ( $template )
 			{
 				$this->layout = Yii::getAlias('//templates/') . $template->layout . '/layout.php';
 			}

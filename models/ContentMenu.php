@@ -257,14 +257,16 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 		$menus = static::find()->andWhere('active = 1')->asArray()->all();
 		$output = [];
 
+		$i = 11;
+
 		foreach ($menus as $menu)
 		{
-			$output[] = [
+			$output[$i++] = [
 				'label'=>'<i class="fa fa-file"></i> ' . $menu['name'],
 				'url'=>['/content/content-page/tree', 'menuId'=>$menu['id']],
 			];
 		}
-		$output[] = ['label' => '<i class="fa fa-file-o"></i> ' . ContentModule::t('app', 'Without menu'), 'url' => ['/content/content-page/tree', 'id'=>null]];
+		$output[$i] = ['label' => '<i class="fa fa-file-o"></i> ' . ContentModule::t('app', 'Without menu'), 'url' => ['/content/content-page/tree', 'id'=>null]];
 
 		return $output;
 	}
