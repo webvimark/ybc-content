@@ -142,16 +142,16 @@ use webvimark\extensions\ckeditor\CKEditor;
 				<div class="col-sm-offset-3_ col-sm-9_">
 					<?php if ( $model->isNewRecord ): ?>
 						<?= Html::submitButton(
-							'<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'),
+							'<span class="glyphicon glyphicon-plus-sign"></span> ' . ContentModule::t('app', 'Create'),
 							['class' => 'btn btn-success']
 						) ?>
 					<?php else: ?>
 						<?= Html::submitButton(
-							'<span class="glyphicon glyphicon-ok"></span> ' . Yii::t('app', 'Save'),
+							'<span class="glyphicon glyphicon-ok"></span> ' . ContentModule::t('app', 'Save'),
 							['class' => 'btn btn-primary']
 						) ?>
 					<?php endif; ?>
-					<?= Html::a(Yii::t('app', 'Cancel'), ['tree', 'menuId'=>$model->content_menu_id], ['class'=>'btn btn-default']) ?>
+					<?= Html::a(ContentModule::t('app', 'Cancel'), ['tree', 'menuId'=>$model->content_menu_id], ['class'=>'btn btn-default']) ?>
 				</div>
 			</div>
 

@@ -2,6 +2,7 @@
 
 namespace webvimark\ybc\content\controllers;
 
+use webvimark\ybc\content\ContentModule;
 use webvimark\ybc\content\models\ContentTemplateHasWidget;
 use webvimark\ybc\content\models\ContentTemplateWidget;
 use Yii;

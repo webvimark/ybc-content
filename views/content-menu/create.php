@@ -7,7 +7,7 @@
 
 use webvimark\ybc\content\ContentModule;
 
-$this->title = Yii::t('app', 'Creating') . " " . ContentModule::t('app', 'menu');
+$this->title = ContentModule::t('app', 'Creating') . " " . ContentModule::t('app', 'menu');
 $this->params['breadcrumbs'][] = ['label' => ContentModule::t('app', 'Manage menus'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

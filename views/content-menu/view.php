@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
  * @var webvimark\ybc\content\models\ContentMenu $model
  */
 
-$this->title = Yii::t('app', 'Details of the') . " " . ContentModule::t('app', 'menu') . ': ' . $model->name;
+$this->title = ContentModule::t('app', 'Details of the') . " " . ContentModule::t('app', 'menu') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => ContentModule::t('app', 'Manage menus'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= Html::a(ContentModule::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= Html::a(ContentModule::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= Html::a(Yii::t('yii', 'Delete'), ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [

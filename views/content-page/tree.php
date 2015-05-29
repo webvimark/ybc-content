@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="panel-body">
 
 		<?= ButtonDropdown::widget([
-			'label'=>'<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'),
+			'label'=>'<span class="glyphicon glyphicon-plus-sign"></span> ' . ContentModule::t('app', 'Create'),
 			'options'=>['class'=>'btn btn-success btn-sm'],
 			'encodeLabel'=>false,
 			'dropdown'=>[
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						$pageType = ' <span class="page-tree-type">'.ContentModule::t('app', 'Text page').'</span>';
 
 						if ( $model->is_main == 1 )
-							$viewUrl = '/';
+							$viewUrl = Yii::$app->homeUrl;
 						else
 							$viewUrl = ['/content/default/view', 'slug'=>$model->slug];
 					}
@@ -79,7 +79,16 @@ $this->params['breadcrumbs'][] = $this->title;
 					{
 						$pageType = ' <span class="page-tree-type">'.ContentModule::t('app', 'Internal link').'</span>';
 
-						$viewUrl = $model->slug;
+						if ( is_numeric($model->slug) )
+						{
+							$page = ContentPage::find()->andWhere(['id'=>$model->slug])->one();
+
+							$viewUrl = $page ? ['/content/default/view', 'slug'=>$page->slug] : Yii::$app->homeUrl;
+						}
+						else
+						{
+							$viewUrl = Yii::$app->homeUrl . $model->slug;
+						}
 					}
 					else
 					{

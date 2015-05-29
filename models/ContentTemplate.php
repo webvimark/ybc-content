@@ -42,22 +42,10 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 		if ( !$templateId )
 			return '';
 
-		$cacheKey = implode('_-_', [
-			__CLASS__,
-			__FUNCTION__,
-			Yii::$app->language,
-			$templateId,
-			Yii::$app->user->isGuest ? 'guest' : 'authorized',
-			$position,
-		]);
+		$result = '';
 
-		$result = Yii::$app->cache->get($cacheKey);
-
-		if ( $result === false )
-		{
-			$result = '';
-
-			$templateHasWidgets = ContentTemplateHasWidget::find()
+		$templateHasWidgets = ContentTemplateHasWidget::getDb()->cache(function() use ($position, $templateId){
+			return ContentTemplateHasWidget::find()
 				->joinWith('contentTemplateWidget')
 				->andWhere(['content_template_widget.active'=>1])
 				->andWhere([
@@ -67,18 +55,17 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 				])
 				->orderBy('content_template_has_widget.sorter ASC')
 				->all();
+		}, ContentModule::CACHE_TIME, new TagDependency(['tags'=>ContentModule::CACHE_TAG]));
 
-			foreach ($templateHasWidgets as $templateHasWidget)
-			{
-				$widgetClass = $templateHasWidget->contentTemplateWidget->widget_class;
+		foreach ($templateHasWidgets as $templateHasWidget)
+		{
+			$widgetClass = $templateHasWidget->contentTemplateWidget->widget_class;
 
-				$result .= "<div class='layout-widget layout-widget-{$position}'>";
-				$result .=  $widgetClass::widget(@unserialize($templateHasWidget->contentTemplateWidget->widget_options));
-				$result .=  "</div>";
-			}
-
-			Yii::$app->cache->set($cacheKey, $result, ContentModule::CACHE_TIME, new TagDependency(['tags'=>ContentModule::CACHE_TAG]));
+			$result .= "<div class='layout-widget layout-widget-{$position}'>";
+			$result .=  $widgetClass::widget(@unserialize($templateHasWidget->contentTemplateWidget->widget_options));
+			$result .=  "</div>";
 		}
+
 
 		return $result;
 	}
@@ -94,7 +81,7 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 	{
 		$items = [];
 
-		$pathToTemplates = Yii::getAlias('@app/views/layouts/templates/');
+		$pathToTemplates = Yii::getAlias('@app/templates/');
 
 		Yii::$app->assetManager->publish($pathToTemplates);
 		$assetUrl = Yii::$app->assetManager->getPublishedUrl($pathToTemplates);
@@ -105,7 +92,7 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 		{
 			if ( !in_array($layoutFolder, ['.', '..']) && is_dir($pathToTemplates . $layoutFolder) )
 			{
-				$items[$layoutFolder] = Html::img($assetUrl . '/' . $layoutFolder . '/layout.png');
+				$items[$layoutFolder] = Html::img($assetUrl . '/' . $layoutFolder . '/backend_image.png');
 			}
 		}
 
@@ -117,12 +104,12 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 	 */
 	public function getLayoutImageFromAssets()
 	{
-		$pathToTemplates = Yii::getAlias('@app/views/layouts/templates/');
+		$pathToTemplates = Yii::getAlias('@app/templates/');
 
 		Yii::$app->assetManager->publish($pathToTemplates);
 		$assetUrl = Yii::$app->assetManager->getPublishedUrl($pathToTemplates);
 
-		return $assetUrl . '/' . $this->layout . '/layout.png';
+		return $assetUrl . '/' . $this->layout . '/backend_image.png';
 	}
 
 	/**
@@ -167,8 +154,8 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 			'can_be_deleted' => ContentModule::t('app', 'Can be deleted'),
 			'name' => ContentModule::t('app', 'Name'),
 			'layout' => ContentModule::t('app', 'Layout'),
-			'created_at' => Yii::t('app', 'Created'),
-			'updated_at' => Yii::t('app', 'Updated'),
+			'created_at' => ContentModule::t('app', 'Created'),
+			'updated_at' => ContentModule::t('app', 'Updated'),
 		];
 	}
 

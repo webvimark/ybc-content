@@ -1,5 +1,6 @@
 <?php
 
+use webvimark\ybc\content\ContentModule;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
@@ -38,16 +39,16 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 		<div class="col-sm-offset-3 col-sm-9">
 			<?php if ( $model->isNewRecord ): ?>
 				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'),
+					'<span class="glyphicon glyphicon-plus-sign"></span> ' . ContentModule::t('app', 'Create'),
 					['class' => 'btn btn-success']
 				) ?>
 			<?php else: ?>
 				<?= Html::submitButton(
-					'<span class="glyphicon glyphicon-ok"></span> ' . Yii::t('app', 'Save'),
+					'<span class="glyphicon glyphicon-ok"></span> ' . ContentModule::t('app', 'Save'),
 					['class' => 'btn btn-primary']
 				) ?>
 			<?php endif; ?>
-			<?= Html::a(Yii::t('app', 'Cancel'), ['index'], ['class'=>'btn btn-default']) ?>
+			<?= Html::a(ContentModule::t('app', 'Cancel'), ['index'], ['class'=>'btn btn-default']) ?>
 		</div>
 	</div>
 

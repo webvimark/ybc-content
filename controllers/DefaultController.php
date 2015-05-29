@@ -21,29 +21,26 @@ class DefaultController extends BaseController
 	 */
 	public function behaviors()
 	{
-		if ( !$this->module->enablePageCache )
+		$behaviors = parent::behaviors();
+
+		if ( $this->module->enablePageCache )
 		{
-			return parent::behaviors();
+			$behaviors['content-page-cache'] = [
+				'class' => 'yii\filters\PageCache',
+				'duration' => $this->module->pageCacheTime,
+				'variations' => array_merge($this->module->additionalPageCacheVariations, [
+					Yii::$app->language,
+					Yii::$app->user->isGuest,
+					Yii::$app->request->isAjax,
+					Yii::$app->request->pathInfo,
+				]),
+				'dependency'=>new TagDependency([
+						'tags'=>[ContentModule::CACHE_TAG, ContentModule::PAGE_CACHE_TAG]
+					]),
+			];
 		}
 
-		return [
-			ArrayHelper::merge(
-				parent::behaviors(),
-				[
-					'class' => 'yii\filters\PageCache',
-					'duration' => $this->module->pageCacheTime,
-					'variations' => [
-						Yii::$app->language,
-						Yii::$app->user->isGuest,
-						Yii::$app->request->isAjax,
-						Yii::$app->request->url,
-					],
-					'dependency'=>new TagDependency([
-							'tags'=>[ContentModule::CACHE_TAG, ContentModule::PAGE_CACHE_TAG]
-						]),
-				]
-			),
-		];
+		return $behaviors;
 	}
 
 	/**
@@ -54,8 +51,6 @@ class DefaultController extends BaseController
 	 */
 	public function actionView($slug)
 	{
-		Yii::$app->cache->flush();
-
 		$contentPage = ContentPage::getDb()->cache(function() use ($slug) {
 			return ContentPage::find()
 				->andWhere([
@@ -84,9 +79,9 @@ class DefaultController extends BaseController
 					->one();
 			}, ContentModule::CACHE_TIME, new TagDependency(['tags'=>ContentModule::CACHE_TAG]));
 
-			if ( $template )
+			if ( $template && is_file(Yii::getAlias('@app/templates/') . $template->layout . '/layout.php') )
 			{
-				$this->layout = Yii::getAlias('//templates/') . $template->layout . '/layout.php';
+				$this->layout = '@app/templates/' . $template->layout . '/layout.php';
 			}
 		}
 

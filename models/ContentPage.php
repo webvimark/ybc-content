@@ -152,8 +152,8 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 			'parent_id'           => 'Parent',
 			'content_template_id' => ContentModule::t('app', 'Template'),
 			'content_menu_id'     => ContentModule::t('app', 'Menu'),
-			'created_at'          => Yii::t('app', 'Created'),
-			'updated_at'          => Yii::t('app', 'Updated'),
+			'created_at'          => ContentModule::t('app', 'Created'),
+			'updated_at'          => ContentModule::t('app', 'Updated'),
 		];
 	}
 

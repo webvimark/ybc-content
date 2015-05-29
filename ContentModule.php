@@ -70,6 +70,14 @@ class ContentModule extends \yii\base\Module
 	 */
 	public $pageCacheTime = 3600;
 
+	/**
+	 * You can see default variations for the page caching in /ybc-content/controller/DefaultController
+	 *
+	 * @see $enablePageCache
+	 * @var array
+	 */
+	public $additionalPageCacheVariations = [];
+
 
 	public $controllerNamespace = 'webvimark\ybc\content\controllers';
 
@@ -99,7 +107,7 @@ class ContentModule extends \yii\base\Module
 
 		$menus = ContentMenu::getListOfMenus();
 
-		arsort($menus);
+		krsort($menus);
 
 		foreach ($menus as $menu)
 		{
@@ -125,8 +133,8 @@ class ContentModule extends \yii\base\Module
 		{
 			Yii::$app->i18n->translations['modules/content/*'] = [
 				'class'          => 'yii\i18n\PhpMessageSource',
-				//'sourceLanguage' => 'en',
-				'basePath'       => '@app/modules/content/messages',
+				'sourceLanguage' => 'en',
+				'basePath'       => '@vendor/webvimark/ybc-content/messages',
 				'fileMap'        => [
 					'modules/content/app' => 'app.php',
 				],

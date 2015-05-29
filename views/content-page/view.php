@@ -22,7 +22,7 @@ switch ($model->type)
 		$pageTypeText = ContentModule::t('app', 'text page');
 }
 
-$this->title = Yii::t('app', 'Details of the') . " " . $pageTypeText . ': ' . $model->name;
+$this->title = ContentModule::t('app', 'Details of the') . " " . $pageTypeText . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => $model->contentMenu->name, 'url' => ['tree', 'menuId' => $model->content_menu_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

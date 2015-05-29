@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="row">
 				<div class="col-xs-6">
 					<p>
-						<?= Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
+						<?= Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . ContentModule::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
 					</p>
 				</div>
 
@@ -94,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'attribute'=>'active',
 						'toggleUrl'=>Url::to(['toggle-attribute', 'attribute'=>'active', 'id'=>'_id_']),
 					],
+					['class' => 'webvimark\components\SorterColumn'],
 
 					['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
 					[

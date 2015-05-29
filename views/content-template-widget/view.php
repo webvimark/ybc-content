@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= Html::a(ContentModule::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= Html::a(ContentModule::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= Html::a(Yii::t('yii', 'Delete'), ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [

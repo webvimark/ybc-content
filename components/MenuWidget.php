@@ -8,9 +8,9 @@ use yii\widgets\Menu;
 class MenuWidget extends Menu
 {
 	/**
-	 * @var int ContentMenu ID
+	 * @var string ContentMenu code
 	 */
-	public $id;
+	public $code;
 	/**
 	 * @var boolean whether the labels for menu items should be HTML-encoded.
 	 */
@@ -26,6 +26,6 @@ class MenuWidget extends Menu
 	 */
 	public function init()
 	{
-		$this->items = ContentMenu::getItemsForMenu($this->id);
+		$this->items = ContentMenu::getItemsForMenu($this->code);
 	}
 } 

@@ -7,10 +7,10 @@
 
 use webvimark\ybc\content\ContentModule;
 
-$this->title = Yii::t('app', 'Editing') . " " . ContentModule::t('app', 'menu') . ': ' . $model->name;
+$this->title = ContentModule::t('app', 'Editing') . " " . ContentModule::t('app', 'menu') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => ContentModule::t('app', 'Manage menus'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
+$this->params['breadcrumbs'][] = ContentModule::t('app', 'Editing')
 ?>
 <div class="content-menu-update">
 

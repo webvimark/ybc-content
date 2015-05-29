@@ -1,5 +1,6 @@
 <?php
 
+use webvimark\ybc\content\ContentModule;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

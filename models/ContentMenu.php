@@ -18,6 +18,7 @@ use yii\helpers\Url;
  * @property string $name
  * @property string $code
  * @property string $position
+ * @property integer $sorter
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -41,17 +42,17 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 	/**
 	 * Used in Menu or Nav widget
 	 *
-	 * @param int $id ContentMenu ID
+	 * @param string $code ContentMenu code
 	 *
 	 * @return array
 	 */
-	public static function getItemsForMenu($id)
+	public static function getItemsForMenu($code)
 	{
 		$cacheKey = implode('_-_', [
 			__CLASS__,
 			__FUNCTION__,
 			Yii::$app->language,
-			$id,
+			$code,
 			Yii::$app->user->isGuest ? 'guest' : 'authorized',
 		]);
 
@@ -72,10 +73,10 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 					'content_page.type',
 					'content_page.slug',
 				])
-				->where([
+				->andWhere([
 					'content_page.active'=>1,
 					'content_menu.active'=>1,
-					'content_menu.id'=>$id,
+					'content_menu.code'=>$code,
 				])
 				->orderBy('content_page.sorter')
 				->all();
@@ -255,7 +256,11 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 	 */
 	public static function getListOfMenus()
 	{
-		$menus = static::find()->andWhere('active = 1')->asArray()->all();
+		$menus = static::find()
+			->andWhere('active = 1')
+			->orderBy('sorter')
+			->asArray()
+			->all();
 		$output = [];
 
 		$i = 11;
@@ -309,6 +314,7 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 			[['name'], 'required'],
 			[['name', 'code'], 'string', 'max' => 255],
 			[['name', 'code'], 'trim'],
+			[['code'], 'unique'],
 		];
 	}
 
@@ -318,15 +324,16 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 	public function attributeLabels()
 	{
 		return [
-			'id' => 'ID',
-			'active' => ContentModule::t('app', 'Active'),
-			'has_submenu' => ContentModule::t('app', 'Has submenu'),
+			'id'             => 'ID',
+			'active'         => ContentModule::t('app', 'Active'),
+			'has_submenu'    => ContentModule::t('app', 'Has submenu'),
 			'has_menu_image' => ContentModule::t('app', 'Has menu image'),
-			'positionIds' => ContentModule::t('app', 'Position'),
-			'name' => ContentModule::t('app', 'Name'),
-			'code' => ContentModule::t('app', 'Code'),
-			'created_at' => Yii::t('app', 'Created'),
-			'updated_at' => Yii::t('app', 'Updated'),
+			'positionIds'    => ContentModule::t('app', 'Position'),
+			'name'           => ContentModule::t('app', 'Name'),
+			'code'           => ContentModule::t('app', 'Code'),
+			'sorter'         => ContentModule::t('app', 'Sorter'),
+			'created_at'     => ContentModule::t('app', 'Created'),
+			'updated_at'     => ContentModule::t('app', 'Updated'),
 		];
 	}
 
@@ -364,6 +371,21 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 		parent::afterDelete();
 	}
 
+	public function beforeSave($insert)
+	{
+		if ( parent::beforeSave($insert) )
+		{
+			if ( !$this->code )
+			{
+				$this->code = uniqid();
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Create ContentTemplateWidget or update it
 	 *
@@ -379,13 +401,13 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 			$widget->position       = $this->position;
 			$widget->widget_class   = self::WIDGET_CLASS;
 			$widget->code           = md5(__CLASS__ . '_' . $this->id);
-			$widget->widget_options = serialize(['id' => $this->id]);
+			$widget->widget_options = serialize(['code' => $this->code]);
 			$widget->has_settings   = 1;
 			$widget->link_to_settings = '/content/content-page/tree?menuId=' . $this->id;
 
 			$widget->save(false);
 		}
-		elseif ( array_key_exists('name', $changedAttributes) || array_key_exists('position', $changedAttributes) )
+		elseif ( array_key_exists('name', $changedAttributes) || array_key_exists('position', $changedAttributes) || array_key_exists('code', $changedAttributes) )
 		{
 			$widget = ContentTemplateWidget::findOne([
 				'widget_class' => self::WIDGET_CLASS,
@@ -396,6 +418,7 @@ class ContentMenu extends \webvimark\components\BaseActiveRecord
 			{
 				$widget->name = $this->name;
 				$widget->position = $this->position;
+				$widget->widget_options = serialize(['code' => $this->code]);
 				$widget->save(false);
 			}
 		}

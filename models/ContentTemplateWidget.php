@@ -136,8 +136,8 @@ class ContentTemplateWidget extends \webvimark\components\BaseActiveRecord
 			'widget_options' => ContentModule::t('app', 'Widget options'),
 			'has_settings' => ContentModule::t('app', 'Has settings'),
 			'link_to_settings' => ContentModule::t('app', 'Link to settings'),
-			'created_at' => Yii::t('app', 'Created'),
-			'updated_at' => Yii::t('app', 'Updated'),
+			'created_at' => ContentModule::t('app', 'Created'),
+			'updated_at' => ContentModule::t('app', 'Updated'),
 		];
 	}
 

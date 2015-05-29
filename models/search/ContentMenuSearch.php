@@ -30,6 +30,11 @@ class ContentMenuSearch extends ContentMenu
 	{
 		$query = ContentMenu::find();
 
+		if ( ! Yii::$app->request->get('sort') )
+		{
+			$query->orderBy('content_menu.sorter');
+		}
+
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'pagination' => [

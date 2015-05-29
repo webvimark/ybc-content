@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<div class="content-template-builder col-sm-12">
 
-		<?= $this->renderFile(Yii::getAlias('@app') . '/views/layouts/templates/'.$model->layout.'/backend_template.php') ?>
+		<?= $this->renderFile(Yii::getAlias('@app') . '/templates/'.$model->layout.'/backend_template.php') ?>
 
 	</div>
 

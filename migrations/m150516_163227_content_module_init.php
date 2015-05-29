@@ -18,8 +18,9 @@ class m150516_163227_content_module_init extends Migration
 			'has_submenu'    => 'smallint(1) not null',
 			'has_menu_image' => 'smallint(1) not null default 0',
 			'name'           => 'string not null',
-			'code'           => 'string',
+			'code'           => 'string unique',
 			'position'       => 'string',
+			'sorter'         => 'int not null',
 			'created_at'     => 'int not null',
 			'updated_at'     => 'int not null',
 		), $tableOptions);

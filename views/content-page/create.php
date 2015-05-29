@@ -21,7 +21,7 @@ switch ($model->type)
 		$pageTypeText = ContentModule::t('app', 'text page for');
 }
 
-$this->title = Yii::t('app', 'Creating') . " " . $pageTypeText . ' - ' . $menuName;
+$this->title = ContentModule::t('app', 'Creating') . " " . $pageTypeText . ' - ' . $menuName;
 $this->params['breadcrumbs'][] = ['label' => $menuName, 'url' => ['tree', 'menuId'=>$model->content_menu_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
