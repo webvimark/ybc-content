@@ -101,15 +101,29 @@ class ContentUrlRule extends UrlRule
 			}
 		}
 
-		$slug = ( count($parts) == 1 AND $parts[0] != '' ) ? $parts[0] : end($parts);
+		$slug = ( count($parts) == 1 && $parts[0] != '' ) ? $parts[0] : end($parts);
 
-		if ( isset($this->getAllPages()[$slug]) )
+		if ( isset($this->getAllPages()[$slug]) ) // For text pages
 		{
-			$page = $this->getAllPages()[$slug];
+			if ( isset($this->getAllPages()[$slug]) )
+			{
+				$page = $this->getAllPages()[$slug];
 
-			Singleton::setData('content_template_id', $page['content_template_id']);
+				Singleton::setData('content_template_id', $page['content_template_id']);
 
-			return ['content/default/view', ['slug'=>$slug, '_language'=>$languagePart]];
+				return ['content/default/view', ['slug'=>$slug, '_language'=>$languagePart]];
+			}
+		}
+		elseif ( count($parts) > 1 ) // For internal links like "site/contact"
+		{
+			$slug = implode('/', $parts);
+
+			if ( isset($this->getAllPages()[$slug]) )
+			{
+				$page = $this->getAllPages()[$slug];
+
+				Singleton::setData('content_template_id', $page['content_template_id']);
+			}
 		}
 
 		return false;  // this rule does not apply
@@ -185,7 +199,7 @@ class ContentUrlRule extends UrlRule
 					->asArray()
 					->andWhere([
 						'active'=>1,
-						'type'=>ContentPage::TYPE_TEXT,
+						'type'=>[ContentPage::TYPE_TEXT, ContentPage::TYPE_INTERNAL_LINK],
 					])
 					->indexBy('slug')
 					->all();
