@@ -157,20 +157,20 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 		];
 	}
 
-	/**
-	 * Generate url from the name
-	 *
-	 * @return bool
-	 */
-	public function beforeValidate()
-	{
-		if ( $this->type == static::TYPE_TEXT )
-		{
-			$this->slug = LittleBigHelper::slug($this->slug ? $this->slug : $this->name);
-		}
-
-		return parent::beforeValidate();
-	}
+//	/**
+//	 * Generate url from the name
+//	 *
+//	 * @return bool
+//	 */
+//	public function beforeValidate()
+//	{
+//		if ( $this->type == static::TYPE_TEXT )
+//		{
+//			$this->slug = LittleBigHelper::slug($this->slug ? $this->slug : $this->name);
+//		}
+//
+//		return parent::beforeValidate();
+//	}
 
 	/**
 	* @return \yii\db\ActiveQuery
@@ -225,6 +225,11 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 	{
 		if ( parent::beforeSave($insert) )
 		{
+			if ( $this->type == static::TYPE_TEXT )
+			{
+				$this->slug = LittleBigHelper::slug($this->slug ? $this->slug : $this->name);
+			}
+
 			if ( $this->is_main == 1 && ( $insert || $this->oldAttributes['is_main'] == 0 ) )
 			{
 				ContentPage::updateAll([
