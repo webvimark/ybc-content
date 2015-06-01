@@ -66,7 +66,6 @@ class ContentTemplate extends \webvimark\components\BaseActiveRecord
 			$result .=  "</div>";
 		}
 
-
 		return $result;
 	}
 
