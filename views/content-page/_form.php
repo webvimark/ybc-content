@@ -188,13 +188,13 @@ use webvimark\extensions\ckeditor\CKEditor;
 							'template' => '<div class="row"><div class="col-sm-6 text-right" style="margin-top: 5px">{label}</div><div class="col-sm-6">{input}{error}{hint}</div></div>'
 						])->checkbox(['class'=>'b-switch'], false) ?>
 
-						<?php if ( $model->type == ContentPage::TYPE_TEXT ): ?>
+<!--						--><?php //if ( $model->type == ContentPage::TYPE_TEXT ): ?>
 
 							<?= $form->field($model->loadDefaultValues(), 'is_main', [
 								'template' => '<div class="row"><div class="col-sm-6 text-right" style="margin-top: 5px">{label}</div><div class="col-sm-6">{input}{error}{hint}</div></div>'
 							])->checkbox(['class'=>'b-switch'], false) ?>
 
-						<?php endif; ?>
+<!--						--><?php //endif; ?>
 
 
 					<?php else: ?>
