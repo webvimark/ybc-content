@@ -84,6 +84,10 @@ class DefaultController extends BaseController
 				$this->layout = '@app/templates/' . $template->layout . '/layout.php';
 			}
 		}
+		else
+		{
+			$this->layout = $this->module->defaultLayout;
+		}
 
 		$breadcrumbs[] = ['label'=>$contentPage->name];
 

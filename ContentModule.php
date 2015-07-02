@@ -21,6 +21,14 @@ class ContentModule extends \yii\base\Module
 	public $enableTemplates = true;
 
 	/**
+	 * If $enableTemplates is false, then this layout will be used for text pages
+	 *
+	 * @var string
+	 * @see $enableTemplates
+	 */
+	public $defaultLayout = '@app/views/layouts/main.php';
+
+	/**
 	 * Array of the pages for internal links where link to the functional page is the key of array
 	 * and custom name is array vale
 	 *
