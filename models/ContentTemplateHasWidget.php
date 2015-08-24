@@ -22,22 +22,14 @@ use yii\caching\TagDependency;
  */
 class ContentTemplateHasWidget extends \webvimark\components\BaseActiveRecord
 {
+	protected $_timestamp_enabled = true;
+
 	/**
 	* @inheritdoc
 	*/
 	public static function tableName()
 	{
 		return '{{%content_template_has_widget}}';
-	}
-
-	/**
-	* @inheritdoc
-	*/
-	public function behaviors()
-	{
-		return [
-			TimestampBehavior::className(),
-		];
 	}
 
 	/**

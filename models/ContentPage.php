@@ -3,14 +3,9 @@
 namespace webvimark\ybc\content\models;
 
 use webvimark\ybc\content\ContentModule;
-use webvimark\behaviors\multilanguage\MultiLanguageBehavior;
-use webvimark\behaviors\multilanguage\MultiLanguageTrait;
 use webvimark\helpers\LittleBigHelper;
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use yii\caching\TagDependency;
-use yii\helpers\FileHelper;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "content_page".
@@ -41,11 +36,24 @@ use yii\helpers\Url;
  */
 class ContentPage extends \webvimark\components\BaseActiveRecord
 {
-	use MultiLanguageTrait;
-
 	const TYPE_TEXT = 0;
 	const TYPE_INTERNAL_LINK = 1;
 	const TYPE_EXTERNAL_LINK = 2;
+
+	protected $_timestamp_enabled = true;
+
+	protected $_i18n_enabled = true;
+	protected $_i18n_attributes = ['name', 'body', 'meta_title', 'meta_description', 'meta_keywords'];
+	protected $_i18n_admin_routes = [
+		'content/content-page/update',
+		'content/content-page/create',
+		'content/content-page/tree',
+		'content/content-page/index',
+		'content/content-page/bulk-activate',
+		'content/content-page/bulk-deactivate',
+		'content/content-page/toggle-attribute',
+		'content/content-page/grid-sort',
+	];
 
 	/**
 	 * @return array
@@ -79,30 +87,6 @@ class ContentPage extends \webvimark\components\BaseActiveRecord
 	public static function tableName()
 	{
 		return '{{%content_page}}';
-	}
-
-	/**
-	* @inheritdoc
-	*/
-	public function behaviors()
-	{
-		return [
-			TimestampBehavior::className(),
-
-			'mlBehavior'=>[
-				'class'    => MultiLanguageBehavior::className(),
-				'mlConfig' => [
-					'db_table'         => 'ml_translations',
-					'attributes'       => ['name', 'body', 'meta_title', 'meta_description', 'meta_keywords'],
-					'admin_routes'     => [
-						'content/content-page/update',
-						'content/content-page/create',
-						'content/content-page/tree',
-						'content/content-page/index',
-					],
-				],
-			],
-		];
 	}
 
 	/**
