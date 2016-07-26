@@ -7,9 +7,9 @@
 		}
 	},
 	"require": {
-		"webvimark/jqtreewidget": "dev-master",
+		"webvimark/jqtreewidget": "*",
 		"webvimark/components": "*",
 		"webvimark/ckeditor": "*",
-		"webvimark/helpers": "dev-master"
+		"webvimark/helpers": "*"
 	}
 }
