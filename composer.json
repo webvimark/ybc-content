@@ -7,9 +7,9 @@
 		}
 	},
 	"require": {
-		"webvimark/jqtreewidget": "*",
-		"webvimark/components": "*",
-		"webvimark/ckeditor": "*",
-		"webvimark/helpers": "*"
+		"webvimark/jqtreewidget": "^1",
+		"webvimark/components": "^1",
+		"webvimark/ckeditor": "^1",
+		"webvimark/helpers": "^1"
 	}
 }
